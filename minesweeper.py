@@ -103,10 +103,30 @@ class Board:
 
 safe = True
 
+def intro():
+    print('''
+* * *       * * *     * * * * *     **      *     * * * * *     * * * * *
+*    *     *    *         *         * *     *     *             *
+*     *   *     *         *         *  *    *     *             *
+*      * *      *         *         *   *   *     * * *         * * * * *
+*       *       *         *         *    *  *     *                     *
+*               *         *         *     * *     *                     *
+*               *     * * * * *     *      **     * * * * *     * * * * *
+''')
+
+def make_space():
+    print('''
+    
+    
+
+    ''')
+
 def play(dim_size = 10, num_bombs = 10):
     board = Board(dim_size, num_bombs)
 
     while len(board.dug) < board.dim_size ** 2 - num_bombs:
+        make_space()
+        intro()
         print(board)
         user_input = re.split(',(\\s)*', input("Where would you like to dig? Input as row,col: "))
         row, col = int(user_input[0]), int(user_input[-1])
@@ -119,9 +139,14 @@ def play(dim_size = 10, num_bombs = 10):
             break
 
     if safe:
+        make_space()
+        intro()
         print("CONGRATS!")
     else:
-        print("Sorry, game over")
+        make_space()
+        intro()
+        print("Sorry, game over, try again")
+        print('')
         board.dug = [(r,c) for r in range(board.dim_size) for c in range(board.dim_size)]
         print(board)
 
